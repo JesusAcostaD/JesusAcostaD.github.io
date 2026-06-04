@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jesús Acosta · Senior Infrastructure Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&amp;family=DM+Sans:wght@300;400;500&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy:   #0a0f1e;
+    --ink:    #111827;
+    --slate:  #1e2d45;
+    --steel:  #2e4a6e;
+    --gold:   #c9a84c;
+    --amber:  #e8c06a;
+    --mist:   #e8edf4;
+    --white:  #f7f9fc;
+    --dim:    #8a96a8;
+    --radius: 4px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ── HEADER / NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 900;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: rgba(10, 15, 30, 0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.05em;
+    color: var(--gold);
+  }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-decoration: none;
+    transition: color 0.25s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 5rem 5rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(201, 168, 76, 0.1);
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    color: var(--gold);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 0.9rem;
+    border-radius: 2px;
+    width: fit-content;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .hero-name span { color: var(--gold); }
+
+  .hero-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--dim);
+    letter-spacing: 0.08em;
+    margin-bottom: 1.75rem;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-summary {
+    font-size: 1.05rem;
+    color: var(--mist);
+    line-height: 1.75;
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s 0.3s ease both;
+    font-weight: 300;
+  }
+
+  .hero-ctas {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--gold);
+    color: var(--navy);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    padding: 0.85rem 1.8rem;
+    text-decoration: none;
+    border-radius: var(--radius);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--amber); transform: translateY(-2px); }
+
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    color: var(--gold);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    padding: 0.85rem 1.8rem;
+    text-decoration: none;
+    border-radius: var(--radius);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-ghost:hover { background: rgba(201, 168, 76, 0.08); transform: translateY(-2px); }
+
+  /* Hero right — decorative */
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+    animation: gridDrift 20s linear infinite;
+  }
+
+  @keyframes gridDrift {
+    from { background-position: 0 0; }
+    to   { background-position: 48px 48px; }
+  }
+
+  .hero-card {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 340px;
+    background: rgba(30, 45, 69, 0.7);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 8px;
+    padding: 2.5rem;
+    backdrop-filter: blur(10px);
+    animation: fadeUp 1s 0.5s ease both;
+  }
+
+  .hero-avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--steel), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 1.25rem;
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.25);
+  }
+
+  .hero-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .hero-card p {
+    font-size: 0.8rem;
+    color: var(--dim);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 1.5rem;
+  }
+
+  .stat-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    border-top: 1px solid rgba(201,168,76,0.12);
+    padding-top: 1.25rem;
+  }
+
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+  }
+  .stat-lbl {
+    font-size: 0.72rem;
+    color: var(--dim);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .cert-pills {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    margin-top: 1.25rem;
+    border-top: 1px solid rgba(201,168,76,0.12);
+    padding-top: 1.25rem;
+  }
+  .cert-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.25);
+    color: var(--gold);
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 6rem 5rem; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    color: var(--dim);
+    max-width: 560px;
+    font-weight: 300;
+    margin-bottom: 3.5rem;
+  }
+
+  /* ── EXPERTISE ── */
+  #expertise {
+    background: var(--slate);
+    border-top: 1px solid rgba(201,168,76,0.1);
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+
+  .expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .exp-card {
+    background: rgba(10,15,30,0.6);
+    border: 1px solid rgba(201,168,76,0.12);
+    border-radius: 6px;
+    padding: 2rem;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .exp-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--gold);
+    transition: height 0.4s ease;
+  }
+  .exp-card:hover { border-color: rgba(201,168,76,0.35); transform: translateY(-4px); }
+  .exp-card:hover::before { height: 100%; }
+
+  .exp-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .exp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    color: var(--white);
+  }
+
+  .exp-desc {
+    font-size: 0.875rem;
+    color: var(--dim);
+    line-height: 1.7;
+  }
+
+  .exp-metric {
+    margin-top: 1.25rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── EXPERIENCE TIMELINE ── */
+  #experiencia { background: var(--navy); }
+
+  .timeline { max-width: 820px; position: relative; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  }
+
+  .tl-item {
+    padding-left: 2.5rem;
+    margin-bottom: 3rem;
+    position: relative;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -4px; top: 6px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 12px rgba(201,168,76,0.5);
+  }
+
+  .tl-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.35rem;
+  }
+
+  .tl-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+  }
+
+  .tl-company {
+    font-size: 0.85rem;
+    color: var(--amber);
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+
+  .tl-desc {
+    font-size: 0.875rem;
+    color: var(--dim);
+    line-height: 1.75;
+  }
+
+  .tl-tags {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    margin-top: 0.85rem;
+  }
+  .tl-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    background: rgba(46,74,110,0.5);
+    border: 1px solid rgba(46,74,110,0.8);
+    color: var(--mist);
+    padding: 0.2rem 0.55rem;
+    border-radius: 2px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── CERTIFICATIONS ── */
+  #certificaciones {
+    background: var(--slate);
+    border-top: 1px solid rgba(201,168,76,0.1);
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .cert-card {
+    background: rgba(10,15,30,0.5);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 6px;
+    padding: 1.75rem;
+    display: flex; align-items: flex-start; gap: 1rem;
+    transition: transform 0.25s, border-color 0.25s;
+  }
+  .cert-card:hover { transform: translateY(-3px); border-color: rgba(201,168,76,0.4); }
+
+  .cert-logo {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: linear-gradient(135deg, #0078d4, #00bcf2);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+
+  .cert-info h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--white);
+  }
+  .cert-info p {
+    font-size: 0.75rem;
+    color: var(--dim);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── CONTACT ── */
+  #contacto {
+    background: var(--navy);
+    text-align: center;
+  }
+
+  .contact-inner {
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  .contact-links {
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 1.25rem;
+    margin-top: 2.5rem;
+  }
+
+  .contact-link {
+    display: flex; align-items: center; gap: 0.6rem;
+    background: rgba(30,45,69,0.6);
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--mist);
+    font-size: 0.85rem;
+    padding: 0.85rem 1.5rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: border-color 0.25s, background 0.25s, transform 0.25s;
+  }
+  .contact-link:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.08);
+    transform: translateY(-2px);
+    color: var(--gold);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: rgba(5,8,16,0.9);
+    border-top: 1px solid rgba(201,168,76,0.08);
+    text-align: center;
+    padding: 2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--dim);
+    letter-spacing: 0.08em;
+  }
+
+  footer span { color: var(--gold); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 7rem 2rem 4rem; }
+    section { padding: 4rem 1.75rem; }
+    .expertise-grid { grid-template-columns: 1fr; }
+    .certs-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">JA</div>
+  <ul class="nav-links">
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#experiencia">Trayectoria</a></li>
+    <li><a href="#certificaciones">Certificaciones</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">⬡ Panama · Senior Infrastructure Engineer</div>
+    <h1 class="hero-name">Jesús<br><span>Acosta</span></h1>
+    <p class="hero-title">Windows & Hybrid Cloud Specialist · IAM · SysOps</p>
+    <p class="hero-summary">
+      Más de 20 años liderando infraestructuras críticas en el sector financiero.
+      Especialista en Active Directory, gestión de identidades (IAM), 
+      entornos híbridos Azure y automatización con PowerShell. 
+      Arquitecto del control de accesos en instituciones como Banesco, 
+      Multibank y Grupo Motta.
+    </p>
+    <div class="hero-ctas">
+      <a href="https://www.linkedin.com/in/acostajesus" target="_blank" class="btn-primary">
+        ↗ Ver LinkedIn
+      </a>
+      <a href="#contacto" class="btn-ghost">
+        Contáctame
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-card">
+      <div class="hero-avatar">JA</div>
+      <h3>Jesús Acosta</h3>
+      <p>Senior Infrastructure Engineer</p>
+      <div class="stat-row">
+        <div class="stat">
+          <span class="stat-num">20+</span>
+          <span class="stat-lbl">Años exp.</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">100%</span>
+          <span class="stat-lbl">Compliance</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">45%</span>
+          <span class="stat-lbl">↓ Incidentes</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">168</span>
+          <span class="stat-lbl">Apps auditadas</span>
+        </div>
+      </div>
+      <div class="cert-pills">
+        <span class="cert-pill">AZ-800</span>
+        <span class="cert-pill">AZ-801</span>
+        <span class="cert-pill">MCP</span>
+        <span class="cert-pill">Azure Hybrid</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERTISE ── -->
+<section id="expertise">
+  <p class="section-label">// Especialidades</p>
+  <h2 class="section-title">Áreas de dominio</h2>
+  <p class="section-subtitle">Soluciones robustas para entornos empresariales que demandan seguridad, continuidad y escalabilidad.</p>
+  <div class="expertise-grid">
+
+    <div class="exp-card">
+      <div class="exp-icon">🏛️</div>
+      <h3 class="exp-title">Active Directory & Servicios de Dominio</h3>
+      <p class="exp-desc">Diseño, migración y mantenimiento de entornos AD. Experto en replicación, salud del dominio, GPO, DNS y DHCP en ambientes multi-site.</p>
+      <div class="exp-metric">↓ 30% fallos de implementación en Banesco</div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-icon">🔐</div>
+      <h3 class="exp-title">Gestión de Identidades (IAM & RBAC)</h3>
+      <p class="exp-desc">Matrices de control de acceso basadas en roles. Integración con Okta, SSO y aprovisionamiento automático. Gobernanza de identidades a escala bancaria.</p>
+      <div class="exp-metric">↓ 40% incidentes de seguridad · Caso Banesco</div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-icon">☁️</div>
+      <h3 class="exp-title">Infraestructura Híbrida Azure</h3>
+      <p class="exp-desc">Certificado AZ-800 & AZ-801. Integración On-Premise con Azure, gestión de servidores Windows en entornos cloud y estrategias de modernización.</p>
+      <div class="exp-metric">Microsoft Certified: Windows Server Hybrid Admin</div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-icon">🛡️</div>
+      <h3 class="exp-title">Seguridad, Hardening & Auditoría</h3>
+      <p class="exp-desc">Mitigación de vulnerabilidades críticas en Active Directory. Hardening de servidores Windows. 100% de cumplimiento en auditorías bancarias internas y externas.</p>
+      <div class="exp-metric">↓ 25–35% vulnerabilidades en clientes corporativos</div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-icon">⚡</div>
+      <h3 class="exp-title">Automatización con PowerShell</h3>
+      <p class="exp-desc">Scripts para automatización de tareas repetitivas, gestión masiva de usuarios, reportes de auditoría y despliegues que aceleran los tiempos de resolución.</p>
+      <div class="exp-metric">↓ 45% tiempo de resolución de incidentes</div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-icon">🏗️</div>
+      <h3 class="exp-title">Virtualización & Alta Disponibilidad</h3>
+      <p class="exp-desc">Hyper-V Failover Cluster, VMware, SAN Dell y estrategias de Disaster Recovery. Garantía de continuidad operativa en entornos productivos críticos.</p>
+      <div class="exp-metric">↑ 30% rendimiento en sistemas de producción</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ── -->
+<section id="experiencia">
+  <p class="section-label">// Trayectoria</p>
+  <h2 class="section-title">Experiencia profesional</h2>
+  <p class="section-subtitle">Más de dos décadas entregando resultados medibles en el sector financiero, retail y consultoría TI.</p>
+
+  <div class="timeline">
+
+    <div class="tl-item">
+      <p class="tl-date">2024 — 2026 · 1 año 9 meses</p>
+      <h3 class="tl-role">Consultor Senior de Gestión de Identidad y Accesos (IAM)</h3>
+      <p class="tl-company">Banesco Panamá · vía Netready Solutions</p>
+      <p class="tl-desc">Lideré el proyecto estratégico SirWeb migrando roles desde Rector, coordiné la integración de 80 aplicaciones a Okta para SSO, audité 168 aplicaciones empresariales y alcancé 100% de cumplimiento con normativas bancarias.</p>
+      <div class="tl-tags">
+        <span class="tl-tag">IAM</span><span class="tl-tag">Okta</span><span class="tl-tag">LDAP</span>
+        <span class="tl-tag">Active Directory</span><span class="tl-tag">Auditoría</span><span class="tl-tag">SSO</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <p class="tl-date">2021 — 2024 · 2 años 3 meses</p>
+      <h3 class="tl-role">Consultor Senior de Infraestructura y Seguridad</h3>
+      <p class="tl-company">Consein Latam</p>
+      <p class="tl-desc">Migración de controladores de dominio y hardening de AD para Grupo Motta, Deportes Jimmy, Aiwa y Migración. Coordiné el área de HelpDesk logrando 98% de adherencia a SLAs y reducción del 20% en tiempos de resolución.</p>
+      <div class="tl-tags">
+        <span class="tl-tag">Domain Migration</span><span class="tl-tag">Hardening</span>
+        <span class="tl-tag">SLA</span><span class="tl-tag">Outsourcing TI</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <p class="tl-date">2018 — 2019 · 1 año 5 meses</p>
+      <h3 class="tl-role">Consultor Senior de Sistemas y Tecnología</h3>
+      <p class="tl-company">Nextcom Systems / Sistemas Delta</p>
+      <p class="tl-desc">Auditorías estratégicas, migración de más de 10 controladores de dominio, health checks en 50+ servidores. Clientes: Félix B. Maduro, Grupo Ricamar, MultiBank.</p>
+      <div class="tl-tags">
+        <span class="tl-tag">Assessment</span><span class="tl-tag">MultiBank</span>
+        <span class="tl-tag">Félix B. Maduro</span><span class="tl-tag">Hardening AD</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <p class="tl-date">2013 — 2019 · 6 años</p>
+      <h3 class="tl-role">Gerente de Tecnología / Consultor Senior</h3>
+      <p class="tl-company">Grupo Panaluxe & AltaVista Capital</p>
+      <p class="tl-desc">Creé el Data Center corporativo desde cero. Implementé el ERP ICG Manager en 5 tiendas de lujo (Prada, Valentino, Roberto Cavalli). Administré la infraestructura Microsoft completa y lideré el área de Soporte.</p>
+      <div class="tl-tags">
+        <span class="tl-tag">Data Center</span><span class="tl-tag">ERP ICG</span>
+        <span class="tl-tag">Hyper-V</span><span class="tl-tag">VMware</span><span class="tl-tag">Retail Luxury</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <p class="tl-date">2010 — 2011 · 1 año</p>
+      <h3 class="tl-role">Administrador de Infraestructura TI</h3>
+      <p class="tl-company">Grupo David</p>
+      <p class="tl-desc">Gestioné la infraestructura de red LAN/WAN para más de 24 tiendas en 5 países (Adidas, Victoria's Secret, Reebok, Clarks). Exchange Server, VPN y soporte a puntos de venta con ICG Manager.</p>
+      <div class="tl-tags">
+        <span class="tl-tag">WAN/LAN</span><span class="tl-tag">Exchange</span>
+        <span class="tl-tag">5 países</span><span class="tl-tag">Retail</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <p class="tl-date">2001 — 2005 · 4 años 7 meses</p>
+      <h3 class="tl-role">Consultor Senior de Infraestructura TI</h3>
+      <p class="tl-company">Amagi Group (ex OpenCrom)</p>
+      <p class="tl-desc">Outsourcing para instituciones financieras clave: CorpBanca, Unibanca, Banesco, IESA. Coordinación de Help Desk bancario, implementación de Tivoli (IBM) y migraciones masivas de SO.</p>
+      <div class="tl-tags">
+        <span class="tl-tag">Banca</span><span class="tl-tag">Tivoli IBM</span>
+        <span class="tl-tag">Lotus Notes</span><span class="tl-tag">Windows 2000/NT</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── CERTIFICATIONS ── -->
+<section id="certificaciones">
+  <p class="section-label">// Certificaciones</p>
+  <h2 class="section-title">Credenciales Microsoft</h2>
+  <p class="section-subtitle">Certificaciones vigentes que respaldan el expertise técnico en entornos Windows e infraestructura híbrida Azure.</p>
+  <div class="certs-grid">
+
+    <div class="cert-card">
+      <div class="cert-logo">☁️</div>
+      <div class="cert-info">
+        <h4>Azure Fundamentals</h4>
+        <p>Microsoft Certified · AZ-900</p>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-logo">🖥️</div>
+      <div class="cert-info">
+        <h4>AZ-800: Windows Server Hybrid Core</h4>
+        <p>Administering Hybrid Infrastructure</p>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-logo">⚙️</div>
+      <div class="cert-info">
+        <h4>AZ-801: Windows Server Hybrid Advanced</h4>
+        <p>Configuring Advanced Services</p>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-logo">🏅</div>
+      <div class="cert-info">
+        <h4>Windows Server Hybrid Administrator</h4>
+        <p>Microsoft Certified Associate</p>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-logo">🎖️</div>
+      <div class="cert-info">
+        <h4>Microsoft Certified Professional</h4>
+        <p>MCP · Trayectoria acumulada</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contacto">
+  <div class="contact-inner">
+    <p class="section-label">// Conectar</p>
+    <h2 class="section-title">¿Hablamos?</h2>
+    <p class="section-subtitle">
+      Si buscas fortalecer la infraestructura de servidores de tu organización, 
+      implementar gobierno de accesos o poner orden en tus identidades digitales, 
+      estaré encantado de conversar.
+    </p>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/acostajesus" target="_blank" class="contact-link">
+        <span>in</span> LinkedIn
+      </a>
+      <a href="mailto:jesus.acosta.d@outlook.com" class="contact-link">
+        ✉ jesus.acosta.d@outlook.com
+      </a>
+      <a href="tel:+50760198738" class="contact-link">
+        ☎ +507 601-98738
+      </a>
+      <a href="https://yosoyjesusacosta.blogspot.com/" target="_blank" class="contact-link">
+        ✍ Blog
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  © 2025 <span>Jesús Acosta</span> · Senior Infrastructure Engineer · Panamá
+</footer>
+
+</body>
+</html>
